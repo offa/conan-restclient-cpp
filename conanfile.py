@@ -13,11 +13,12 @@ class RestclientcppConan(ConanFile):
     options = {"shared": [True, False]}
     default_options = "shared=False"
     generators = "cmake_find_package"
-    exports = ["LICENSE"] # Packages the license for the conanfile.py
+    exports = ["LICENSE"]
     requires = (
         "libcurl/7.64.1@bincrafters/stable",
         "jsoncpp/1.8.4@theirix/stable"
     )
+
 
     def _configure_cmake(self):
         cmake = CMake(self)
@@ -27,7 +28,6 @@ class RestclientcppConan(ConanFile):
     def source(self):
         self.run("git clone https://github.com/mrtazz/restclient-cpp.git")
         tools.replace_in_file("restclient-cpp/CMakeLists.txt", "CURL", "libcurl")
-
 
     def build(self):
         cmake = self._configure_cmake()
