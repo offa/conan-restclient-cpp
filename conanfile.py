@@ -4,11 +4,12 @@ from conans import ConanFile, CMake, tools
 class RestclientcppConan(ConanFile):
     name = "restclient-cpp"
     version = "0.5.1"
-    license = "<Put the package license here>"
-    author = "<Put your name here> <And your email here>"
-    url = "<Package recipe repository url here, for issues about the package>"
+    license = "MIT"
+    author = "offa <offa@github>"
+    url = "https://github.com/offa/conan-restclient-cpp"
     description = "<Description of Restclientcpp here>"
-    topics = ("<Put some tag here>", "<here>", "<and here>")
+    homepage = "https://github.com/mrtazz/restclient-cpp"
+    topics = ("restclient", "libcurl", "rest-client", "http-client", "http")
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=False"
