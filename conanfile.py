@@ -16,12 +16,12 @@ class RestclientcppConan(ConanFile):
     generators = "cmake_find_package"
     exports = ["LICENSE"]
     _source_dir = "{}-{}".format(name, version)
-    scm = {
-        "type": "git",
-        "subfolder": _source_dir,
-        "url": "{}.git".format(homepage),
-        "revision": "{}".format(version)
-    }
+    # scm = {
+        # "type": "git",
+        # "subfolder": _source_dir,
+        # "url": "{}.git".format(homepage),
+        # "revision": "{}".format(version)
+    # }
     requires = (
         "libcurl/7.64.1@bincrafters/stable",
         "jsoncpp/1.9.0@theirix/stable"
@@ -34,6 +34,8 @@ class RestclientcppConan(ConanFile):
         return cmake
 
     def source(self):
+        git = tools.Git(folder=self._source_dir)
+        git.clone("{}.git".format(self.homepage), self.version)
         tools.replace_in_file("{}/CMakeLists.txt".format(self._source_dir), "CURL", "libcurl")
 
     def build(self):
