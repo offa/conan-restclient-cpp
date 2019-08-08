@@ -19,7 +19,7 @@ class RestclientcppConan(ConanFile):
     scm = {
         "type": "git",
         "subfolder": _source_dir,
-        "url": "{}.git".format(hompage),
+        "url": "{}.git".format(homepage),
         "revision": version
     }
     requires = (
