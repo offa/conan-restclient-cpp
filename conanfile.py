@@ -24,7 +24,7 @@ class RestclientcppConan(ConanFile):
     }
     requires = (
         "libcurl/7.64.1@bincrafters/stable",
-        "jsoncpp/1.9.0@theirix/stable"
+        "jsoncpp/1.9.2@theirix/stable"
     )
 
 
