@@ -3,7 +3,7 @@ from conans import ConanFile, CMake, tools
 
 class RestclientcppConan(ConanFile):
     name = "restclient-cpp"
-    version = "0.5.1"
+    version = "0.5.2"
     license = "MIT"
     author = "offa <offa@github>"
     url = "https://github.com/offa/conan-restclient-cpp"
