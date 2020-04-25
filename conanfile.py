@@ -34,7 +34,7 @@ class RestclientcppConan(ConanFile):
         return cmake
 
     def source(self):
-        tools.replace_in_file("{}/CMakeLists.txt".format(self._source_dir), "CURL", "libcurl")
+        tools.replace_in_file("{}/CMakeLists.txt".format(self._source_dir), "CURL::libcurl", "CURL::CURL")
 
     def build(self):
         cmake = self._configure_cmake()
