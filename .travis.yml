@@ -56,6 +56,9 @@ matrix:
       - <<: *linux
         env: CONAN_CLANG_VERSIONS=8 CONAN_DOCKER_IMAGE=conanio/clang8
 
+      - <<: *linux
+        env: CONAN_CLANG_VERSIONS=9 CONAN_DOCKER_IMAGE=conanio/clang9
+
 
 install:
   - .travis/install.sh
