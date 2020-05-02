@@ -14,9 +14,6 @@ linux: &linux
    python: "3.8"
    services:
      - docker
-osx: &osx
-   os: osx
-   language: generic
 matrix:
    include:
 
