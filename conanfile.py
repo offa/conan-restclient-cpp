@@ -23,8 +23,8 @@ class RestclientcppConan(ConanFile):
         "revision": version
     }
     requires = (
-        "libcurl/7.69.1",
-        "jsoncpp/1.9.2"
+        "libcurl/7.74.0",
+        "jsoncpp/1.9.4"
     )
 
 
