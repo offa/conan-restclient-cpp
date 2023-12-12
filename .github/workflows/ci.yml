@@ -33,4 +33,4 @@ jobs:
           conan profile detect
       - name: Build
         run: |
-          conan create . --build=missing -o shared=${{ matrix.shared }}
+          conan create . --build=missing -o shared=${{ matrix.shared }} --version="0.5.2"

@@ -1,12 +1,10 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake
-from conan.tools.files import collect_libs, copy
-from conan.tools.scm import Git
+from conan.tools.files import collect_libs, copy, get
 
 
 class RestclientcppConan(ConanFile):
     name = "restclient-cpp"
-    version = "0.5.2"
     license = "MIT"
     author = "offa <offa@github>"
     url = "https://github.com/offa/conan-restclient-cpp"
@@ -26,9 +24,7 @@ class RestclientcppConan(ConanFile):
         return cmake
 
     def source(self):
-        git = Git(self)
-        git.clone(url=(self.homepage + ".git"), target=".")
-        git.checkout(commit=self.version)
+        get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
     def build(self):
         cmake = self._configure_cmake()

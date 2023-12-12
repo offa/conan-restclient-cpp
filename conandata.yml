@@ -1,0 +1,4 @@
+sources:
+  "0.5.2":
+    url: "https://github.com/mrtazz/restclient-cpp/archive/refs/tags/0.5.2.tar.gz"
+    sha256: "d62ba618f9a938652fd53b483289e8662a99451839e59058c8beb286dfbc65ec"
