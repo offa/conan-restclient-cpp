@@ -12,8 +12,8 @@ class RestclientcppConan(ConanFile):
     homepage = "https://github.com/mrtazz/restclient-cpp"
     topics = ("restclient", "libcurl", "rest-client", "http-client", "http")
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False]}
-    default_options = {"shared": False}
+    options = {"shared": [True, False], "fPIC": [True, False]}
+    default_options = {"shared": False, "fPIC": True}
     generators = ["CMakeDeps", "CMakeToolchain"]
     exports = ["LICENSE"]
     requires = ("libcurl/8.4.0", "jsoncpp/1.9.4")
@@ -25,6 +25,10 @@ class RestclientcppConan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+
+    def configure(self):
+        if self.options.shared:
+            self.options.rm_safe("fPIC")
 
     def build(self):
         cmake = self._configure_cmake()
