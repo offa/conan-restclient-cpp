@@ -1,4 +1,7 @@
-from conans import ConanFile, CMake, tools
+from conan import ConanFile
+from conan.tools.cmake import CMake
+from conan.tools.files import collect_libs, copy, replace_in_file
+from conan.tools.scm import Git
 
 
 class RestclientcppConan(ConanFile):
@@ -12,29 +15,24 @@ class RestclientcppConan(ConanFile):
     topics = ("restclient", "libcurl", "rest-client", "http-client", "http")
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
-    default_options = "shared=False"
-    generators = "cmake_find_package"
+    default_options = {"shared": False}
+    generators = ["CMakeDeps", "CMakeToolchain"]
     exports = ["LICENSE"]
-    _source_dir = "{}-{}".format(name, version)
-    scm = {
-        "type": "git",
-        "subfolder": _source_dir,
-        "url": "{}.git".format(homepage),
-        "revision": version
-    }
     requires = (
-        "libcurl/7.74.0",
+        "libcurl/8.4.0",
         "jsoncpp/1.9.4"
     )
 
 
     def _configure_cmake(self):
         cmake = CMake(self)
-        cmake.configure(source_folder=self._source_dir, build_folder="build")
+        cmake.configure()
         return cmake
 
     def source(self):
-        tools.replace_in_file("{}/CMakeLists.txt".format(self._source_dir), "CURL::libcurl", "CURL::CURL")
+        git = Git(self)
+        git.clone(url=(self.homepage + ".git"), target=".")
+        git.checkout(commit=self.version)
 
     def build(self):
         cmake = self._configure_cmake()
@@ -43,7 +41,7 @@ class RestclientcppConan(ConanFile):
     def package(self):
         cmake = self._configure_cmake()
         cmake.install()
-        self.copy("LICENSE", dst="licenses")
+        copy(self, "LICENSE", ".", "licenses")
 
     def package_info(self):
-        self.cpp_info.libs = tools.collect_libs(self)
+        self.cpp_info.libs = collect_libs(self)
