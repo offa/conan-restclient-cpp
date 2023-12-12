@@ -12,9 +12,12 @@ jobs:
           - gcc:12
           - clang:17
           - clang:16
+        shared:
+          - 'True'
+          - 'False'
     container:
       image: "registry.gitlab.com/offa/docker-images/${{ matrix.compiler }}"
-    name: "${{ matrix.compiler }}"
+    name: "${{ matrix.compiler }} (Shared: ${{ matrix.shared }})"
     steps:
       - uses: actions/checkout@main
       - name: Cache Conan Packages
@@ -30,4 +33,4 @@ jobs:
           conan profile detect
       - name: Build
         run: |
-          conan create . --build=missing
+          conan create . --build=missing -o shared=${{ matrix.shared }}
