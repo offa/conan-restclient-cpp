@@ -4,31 +4,22 @@ on: [push, pull_request]
 
 jobs:
   build_linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        build_config:
-          - { compiler: gcc, version: 10 }
-          - { compiler: gcc, version: 9 }
-          - { compiler: gcc, version: 8 }
-          - { compiler: gcc, version: 7 }
-          - { compiler: clang, version: 11 }
-          - { compiler: clang, version: 10 }
-          - { compiler: clang, version: 9 }
-          - { compiler: clang, version: 8 }
-    name: "${{ matrix.build_config.compiler }}-${{ matrix.build_config.version }}"
+        compiler:
+          - gcc:13
+          - gcc:12
+          - clang:17
+          - clang:16
+    container:
+      image: "registry.gitlab.com/offa/docker-images/${{ matrix.compiler }}"
+    name: "${{ matrix.compiler }}"
     steps:
       - uses: actions/checkout@master
       - name: Setup
         run: |
-          pip install -U conan conan_package_tools
+          pip install -U conan
       - name: Build
-        env:
-          CONAN_ARCHS: x86_64
-          CONAN_BUILD_TYPES: Release
-          CONAN_BUILD_POLICY: missing
         run: |
-          COMPILER_ENV=$(echo "${{ matrix.build_config.compiler }}" | tr '[:lower:]' '[:upper:]')
-          export CONAN_${COMPILER_ENV}_VERSIONS=${{ matrix.build_config.version }}
-          export CONAN_DOCKER_IMAGE=conanio/${{ matrix.build_config.compiler }}${{ matrix.build_config.version }}
-          python build.py
+          conan create . --build=missing
