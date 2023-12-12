@@ -16,10 +16,13 @@ jobs:
       image: "registry.gitlab.com/offa/docker-images/${{ matrix.compiler }}"
     name: "${{ matrix.compiler }}"
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - name: Setup
         run: |
-          pip install -U conan
+          apt-get update
+          apt-get install -y python3-pip
+          pip3 install -U conan
+          conan profile detect
       - name: Build
         run: |
           conan create . --build=missing
