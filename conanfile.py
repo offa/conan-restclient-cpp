@@ -1,6 +1,6 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake
-from conan.tools.files import collect_libs, copy, replace_in_file
+from conan.tools.files import collect_libs, copy
 from conan.tools.scm import Git
 
 
@@ -18,11 +18,7 @@ class RestclientcppConan(ConanFile):
     default_options = {"shared": False}
     generators = ["CMakeDeps", "CMakeToolchain"]
     exports = ["LICENSE"]
-    requires = (
-        "libcurl/8.4.0",
-        "jsoncpp/1.9.4"
-    )
-
+    requires = ("libcurl/8.4.0", "jsoncpp/1.9.4")
 
     def _configure_cmake(self):
         cmake = CMake(self)
