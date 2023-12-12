@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 2.8.12)
-project(PackageTest CXX)
+cmake_minimum_required(VERSION 3.11)
+project(test_package CXX)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+find_package(restclient-cpp REQUIRED)
 
-add_executable(example example.cpp)
-target_link_libraries(example ${CONAN_LIBS})
+add_executable(test_package example.cpp)
+target_link_libraries(test_package PRIVATE restclient-cpp::restclient-cpp)
+

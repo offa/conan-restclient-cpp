@@ -4,6 +4,8 @@
 int main()
 {
     RestClient::init();
+    RestClient::Connection conn{"https://url.com"};
+    conn.SetTimeout(5);
     RestClient::disable();
     return 0;
 }
